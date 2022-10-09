@@ -5,20 +5,7 @@
  */
 package com.busstationmanager.configs;
 
-//import com.google.auth.oauth2.GoogleCredentials;
-//import com.google.firebase.FirebaseApp;
-//import com.google.firebase.FirebaseOptions;
-//import com.google.firebase.messaging.FirebaseMessaging;
-//import com.qlbx.formatter.DateTimeFormatter;
-//import com.qlbx.formatter.ProvinceFormatter;
-//import com.qlbx.formatter.RouteFormatter;
-//import com.qlbx.formatter.TripFormatter;
-//import com.qlbx.validator.PasswordValidator;
-//import com.qlbx.validator.WebAppValidator;
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.IOException;
-//import java.util.HashSet;
+import com.busstationmanager.formatter.CarTypeFormatter;
 import java.util.Locale;
 //import java.util.Properties;
 //import java.util.Set;
@@ -74,7 +61,7 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-//        registry.addFormatter(new RouteFormatter());
+        registry.addFormatter(new CarTypeFormatter());
 //        registry.addFormatter(new TripFormatter());
 //        registry.addFormatter(new ProvinceFormatter());
 //        registry.addFormatter(new DateTimeFormatter());

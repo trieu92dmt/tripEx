@@ -7,9 +7,7 @@ package com.busstationmanager.pojo;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,13 +18,11 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -58,16 +54,21 @@ public class Trip implements Serializable {
     private BigInteger ticketPrice;
     @Column(name = "finish_time")
     private Integer finishTime;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tripId")
-    private Set<Shipment> shipmentSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trip")
-    private Set<Ticket> ticketSet;
     @JoinColumn(name = "car_id", referencedColumnName = "car_id")
     @ManyToOne(optional = false)
     private Car carId;
-    @JoinColumns(@JoinColumn(name = "route_id", referencedColumnName = "route_id"))
+    @JoinColumn(name = "company_id", referencedColumnName = "user_id")
+    @ManyToOne(optional = false)
+    private Company companyId;
+    @JoinColumn(name = "route_id", referencedColumnName = "route_id")
     @ManyToOne(optional = false)
     private Route route;
+    @JoinColumn(name = "from_station", referencedColumnName = "station_id")
+    @ManyToOne
+    private Station fromStation;
+    @JoinColumn(name = "to_station", referencedColumnName = "station_id")
+    @ManyToOne
+    private Station toStation;
 
     public Trip() {
     }
@@ -113,24 +114,6 @@ public class Trip implements Serializable {
         this.finishTime = finishTime;
     }
 
-    @XmlTransient
-    public Set<Shipment> getShipmentSet() {
-        return shipmentSet;
-    }
-
-    public void setShipmentSet(Set<Shipment> shipmentSet) {
-        this.shipmentSet = shipmentSet;
-    }
-
-    @XmlTransient
-    public Set<Ticket> getTicketSet() {
-        return ticketSet;
-    }
-
-    public void setTicketSet(Set<Ticket> ticketSet) {
-        this.ticketSet = ticketSet;
-    }
-
     public Car getCarId() {
         return carId;
     }
@@ -139,12 +122,36 @@ public class Trip implements Serializable {
         this.carId = carId;
     }
 
+    public Company getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
+    }
+
     public Route getRoute() {
         return route;
     }
 
     public void setRoute(Route route) {
         this.route = route;
+    }
+
+    public Station getFromStation() {
+        return fromStation;
+    }
+
+    public void setFromStation(Station fromStation) {
+        this.fromStation = fromStation;
+    }
+
+    public Station getToStation() {
+        return toStation;
+    }
+
+    public void setToStation(Station toStation) {
+        this.toStation = toStation;
     }
 
     @Override

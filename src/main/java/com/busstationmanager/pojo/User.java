@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,13 +20,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -80,10 +84,18 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Admin> adminSet;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Role roleId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Customer> customerSet;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+//    private Set<Customer> customerSet;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private Customer customer;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private Company company;
+    @Transient
+    private String confirmPassword;
+    @Transient
+    private MultipartFile file;
 
     public User() {
     }
@@ -179,13 +191,22 @@ public class User implements Serializable {
         this.roleId = roleId;
     }
 
+//    @XmlTransient
+//    public Set<Customer> getCustomerSet() {
+//        return customerSet;
+//    }
+//
+//    public void setCustomerSet(Set<Customer> customerSet) {
+//        this.customerSet = customerSet;
+//    }
+    
     @XmlTransient
-    public Set<Customer> getCustomerSet() {
-        return customerSet;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerSet(Set<Customer> customerSet) {
-        this.customerSet = customerSet;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -211,6 +232,49 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.busstationmanager.pojo.User[ userId=" + userId + " ]";
+    }
+
+    /**
+     * @return the confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    /**
+     * @return the company
+     */
+    @XmlTransient
+    public Company getCompany() {
+        return company;
+    }
+
+    /**
+     * @param company the company to set
+     */
+    public void setCompany(Company company) {
+        this.company = company;
     }
     
 }

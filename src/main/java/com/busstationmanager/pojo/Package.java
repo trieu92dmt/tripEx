@@ -54,8 +54,7 @@ public class Package implements Serializable {
     @Column(name = "package_name")
     private String packageName;
     @Column(name = "expired_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date expiredDate;
+    private int expiredDate;
     @Column(name = "car_limit")
     private Integer carLimit;
     @Column(name = "price")
@@ -91,11 +90,11 @@ public class Package implements Serializable {
         this.packageName = packageName;
     }
 
-    public Date getExpiredDate() {
+    public int getExpiredDate() {
         return expiredDate;
     }
 
-    public void setExpiredDate(Date expiredDate) {
+    public void setExpiredDate(int expiredDate) {
         this.expiredDate = expiredDate;
     }
 

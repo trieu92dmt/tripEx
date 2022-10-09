@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -52,15 +51,12 @@ public class Route implements Serializable {
     @Size(max = 255)
     @Column(name = "Description")
     private String description;
-    @JoinColumns(@JoinColumn(name = "company_id", referencedColumnName = "user_id"))
+    @JoinColumn(name = "Departure", referencedColumnName = "province_id")
     @ManyToOne(optional = false)
-    private Company company;
-    @JoinColumn(name = "Departure", referencedColumnName = "station_id")
+    private Province departure;
+    @JoinColumn(name = "Destination", referencedColumnName = "province_id")
     @ManyToOne(optional = false)
-    private Station departure;
-    @JoinColumn(name = "Destination", referencedColumnName = "station_id")
-    @ManyToOne(optional = false)
-    private Station destination;
+    private Province destination;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
     private Set<Trip> tripSet;
 
@@ -100,27 +96,19 @@ public class Route implements Serializable {
         this.description = description;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Station getDeparture() {
+    public Province getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Station departure) {
+    public void setDeparture(Province departure) {
         this.departure = departure;
     }
 
-    public Station getDestination() {
+    public Province getDestination() {
         return destination;
     }
 
-    public void setDestination(Station destination) {
+    public void setDestination(Province destination) {
         this.destination = destination;
     }
 

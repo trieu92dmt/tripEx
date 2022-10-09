@@ -5,13 +5,13 @@
  */
 package com.busstationmanager.handlers;
 
-//import com.qlbx.pojo.User;
-//import com.qlbx.service.UserService;
+import com.busstationmanager.pojo.User;
+import com.busstationmanager.service.UserService;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -22,15 +22,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class LoginSuccessfullHandler implements AuthenticationSuccessHandler{
-//    @Autowired
-//    private UserService userDetailsService;
+    @Autowired
+    private UserService userDetailsService;
 //    
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication a) throws IOException, ServletException {
-//        User u = this.userDetailsService.getUsers(a.getName()).get(0);
-//        request.getSession().setAttribute("currentUser", u);
-//        
-//        response.sendRedirect("/QLBenXe");
+        User u = this.userDetailsService.getUsers(a.getName()).get(0);
+        request.getSession().setAttribute("currentUser", u);
+        
+        response.sendRedirect("/TripEx");
     }
     
 }

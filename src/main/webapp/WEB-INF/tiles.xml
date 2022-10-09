@@ -22,4 +22,36 @@
         <put-attribute name="title" value="Đăng Ký"/>
         <put-attribute name="content" value="/WEB-INF/jsp/register.jsp"/>
     </definition>
+    <definition name="list-company" extends="baseLayout">
+        <put-attribute name="title" value="Danh sách nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/list.jsp"/>
+    </definition>
+    <definition name="company-register" extends="baseLayout">
+        <put-attribute name="title" value="Đăng ký nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/register.jsp"/>
+    </definition>
+    <definition name="company-details" extends="baseLayout">
+        <put-attribute name="title" value="Chi tiết nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/details.jsp"/>
+    </definition>
+    <definition name="company-details-manager" extends="baseLayout">
+        <put-attribute name="title" value="Chi tiết nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/details-mn.jsp"/>
+    </definition>
+    <definition name="company-car-manager" extends="baseLayout">
+        <put-attribute name="title" value="Danh sách xe quản lý"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/car-mn.jsp"/>
+    </definition>
+    <!--Admin-->
+    <definition name="baseAdminLayout" template="/WEB-INF/layout/admin/base.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/WEB-INF/layout/admin/header.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="sidebar" value="/WEB-INF/layout/admin/sidebar.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/layout/admin/footer.jsp"/>
+    </definition>
+    <definition name="admin-dashboard" extends="baseAdminLayout">
+        <put-attribute name="title" value="Trang Chủ - Admin"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/index.jsp"/>
+    </definition>
 </tiles-definitions>

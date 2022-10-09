@@ -12,9 +12,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,8 +38,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Company.findByCompanyName", query = "SELECT c FROM Company c WHERE c.companyName = :companyName"),
     @NamedQuery(name = "Company.findByAddress", query = "SELECT c FROM Company c WHERE c.address = :address"),
     @NamedQuery(name = "Company.findByExpiredDate", query = "SELECT c FROM Company c WHERE c.expiredDate = :expiredDate"),
-    @NamedQuery(name = "Company.findByCarLimit", query = "SELECT c FROM Company c WHERE c.carLimit = :carLimit")})
+    @NamedQuery(name = "Company.findByCarLimit", query = "SELECT c FROM Company c WHERE c.carLimit = :carLimit"),
+    @NamedQuery(name = "Company.findByEmail", query = "SELECT c FROM Company c WHERE c.email = :email"),
+    @NamedQuery(name = "Company.findByPhoneNumber", query = "SELECT c FROM Company c WHERE c.phoneNumber = :phoneNumber")})
 public class Company implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
+    private Set<Trip> tripSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,10 +65,18 @@ public class Company implements Serializable {
     private Date expiredDate;
     @Column(name = "car_limit")
     private Integer carLimit;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-    private Set<Route> routeSet;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 45)
+    @Column(name = "email")
+    private String email;
+    @Size(max = 12)
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
-    private Set<PackageBill> packageBillSet;
+    private Set<Car> carSet;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private User user;
 
     public Company() {
     }
@@ -115,22 +130,37 @@ public class Company implements Serializable {
         this.carLimit = carLimit;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @XmlTransient
-    public Set<Route> getRouteSet() {
-        return routeSet;
+    public Set<Car> getCarSet() {
+        return carSet;
     }
 
-    public void setRouteSet(Set<Route> routeSet) {
-        this.routeSet = routeSet;
+    public void setCarSet(Set<Car> carSet) {
+        this.carSet = carSet;
     }
 
-    @XmlTransient
-    public Set<PackageBill> getPackageBillSet() {
-        return packageBillSet;
+    public User getUser() {
+        return user;
     }
 
-    public void setPackageBillSet(Set<PackageBill> packageBillSet) {
-        this.packageBillSet = packageBillSet;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -156,6 +186,15 @@ public class Company implements Serializable {
     @Override
     public String toString() {
         return "com.busstationmanager.pojo.Company[ userId=" + userId + " ]";
+    }
+
+    @XmlTransient
+    public Set<Trip> getTripSet() {
+        return tripSet;
+    }
+
+    public void setTripSet(Set<Trip> tripSet) {
+        this.tripSet = tripSet;
     }
     
 }

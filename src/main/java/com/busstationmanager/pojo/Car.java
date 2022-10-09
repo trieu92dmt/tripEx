@@ -4,6 +4,7 @@
  */
 package com.busstationmanager.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -19,7 +20,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -34,10 +34,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Car.findAll", query = "SELECT c FROM Car c"),
     @NamedQuery(name = "Car.findByCarId", query = "SELECT c FROM Car c WHERE c.carId = :carId"),
-    @NamedQuery(name = "Car.findByCompanyId", query = "SELECT c FROM Car c WHERE c.companyId = :companyId"),
     @NamedQuery(name = "Car.findByCarName", query = "SELECT c FROM Car c WHERE c.carName = :carName"),
     @NamedQuery(name = "Car.findByCarNumber", query = "SELECT c FROM Car c WHERE c.carNumber = :carNumber")})
 public class Car implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
+    private Set<Trip> tripSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,21 +47,19 @@ public class Car implements Serializable {
     @Basic(optional = false)
     @Column(name = "car_id")
     private Integer carId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "company_id")
-    private int companyId;
     @Size(max = 100)
     @Column(name = "car_name")
     private String carName;
     @Size(max = 45)
     @Column(name = "car_number")
     private String carNumber;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
-    private Set<Trip> tripSet;
     @JoinColumn(name = "type_id", referencedColumnName = "type_id")
     @ManyToOne(optional = false)
     private CarType typeId;
+    @JsonIgnore
+    @JoinColumn(name = "company_id", referencedColumnName = "user_id")
+    @ManyToOne(optional = false)
+    private Company companyId;
 
     public Car() {
     }
@@ -68,25 +68,12 @@ public class Car implements Serializable {
         this.carId = carId;
     }
 
-    public Car(Integer carId, int companyId) {
-        this.carId = carId;
-        this.companyId = companyId;
-    }
-
     public Integer getCarId() {
         return carId;
     }
 
     public void setCarId(Integer carId) {
         this.carId = carId;
-    }
-
-    public int getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
     }
 
     public String getCarName() {
@@ -105,21 +92,20 @@ public class Car implements Serializable {
         this.carNumber = carNumber;
     }
 
-    @XmlTransient
-    public Set<Trip> getTripSet() {
-        return tripSet;
-    }
-
-    public void setTripSet(Set<Trip> tripSet) {
-        this.tripSet = tripSet;
-    }
-
     public CarType getTypeId() {
         return typeId;
     }
 
     public void setTypeId(CarType typeId) {
         this.typeId = typeId;
+    }
+
+    public Company getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
     }
 
     @Override
@@ -145,6 +131,15 @@ public class Car implements Serializable {
     @Override
     public String toString() {
         return "com.busstationmanager.pojo.Car[ carId=" + carId + " ]";
+    }
+
+    @XmlTransient
+    public Set<Trip> getTripSet() {
+        return tripSet;
+    }
+
+    public void setTripSet(Set<Trip> tripSet) {
+        this.tripSet = tripSet;
     }
     
 }

@@ -10,7 +10,7 @@
 <div class="header-container">
     <div class="header-content d-flex">
         <div class="l-header">
-            <a href="#" class="logo-container d-block">
+            <a href="<c:url value="/home"/>" class="logo-container d-block">
                 <img src="<c:url value="/images/logo1.jpg"/>" alt="logo"/>
             </a>
         </div>
@@ -29,33 +29,65 @@
                     <i class="fa-solid fa-language"></i>
                 </div>
                 <div class="avatar">
-                    <div class="avt-container w-100 m-0 p-0">
+                    <c:if test="${currentUser != null}">
+                        <img src="${currentUser.avatar}" alt="avt" onclick="toggleMenu()"/>
+                    </c:if>
+                    <c:if test="${currentUser == null}">
                         <img src="<c:url value="/images/icon.jpg"/>" alt="avt" onclick="toggleMenu()"/>
-                    </div>
+                    </c:if>
                     <div class="sub-menu-wrap" id="subMenu">
                         <div class="sub-menu">
-                            <div class="user-info">
-                                <img src="<c:url value="/images/icon.jpg"/>" alt="alt"/>
-                                <h4>Minh Triều</h4>
-                            </div>
-                            <hr>
+                            <c:if test="${currentUser == null}">
+                                <a href="<c:url value="/login"/>" class="sub-menu-link">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                    <p>Đăng nhập</p>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </c:if>
+                            <c:if test="${currentUser != null}">
+                                <c:if test="${currentUser.roleId.roleName.equals('ROLE_CUSTOMER')}">
+                                    <div class="user-info">
+                                        <img src="${currentUser.avatar}" alt="alt"/>
+                                        <h4>${currentUser.customer.fullName}</h4>
+                                    </div>
+                                    <hr>
 
-                            <a href="" class="sub-menu-link">
-                                <i class="fa-regular fa-user"></i>
-                                <p>Thông tin tài khoản</p>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <a href="" class="sub-menu-link">
-                                <i class="fa-solid fa-gear"></i>
-                                <p>Cài đặt</p>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <hr>
-                            <a href="" class="sub-menu-link">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <p>Đăng xuất</p>
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
+                                    <a href="" class="sub-menu-link">
+                                        <i class="fa-regular fa-user"></i>
+                                        <p>Thông tin tài khoản</p>
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                    <a href="" class="sub-menu-link">
+                                        <i class="fa-solid fa-gear"></i>
+                                        <p>Cài đặt</p>
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                </c:if>
+                                <c:if test="${currentUser.roleId.roleName.equals('ROLE_COMPANY')}">
+                                    <div class="user-info">
+                                        <img src="${currentUser.avatar}" alt="alt"/>
+                                        <h4>${currentUser.company.companyName}</h4>
+                                    </div>
+                                    <hr>
+
+                                    <a href="" class="sub-menu-link">
+                                        <i class="fa-regular fa-user"></i>
+                                        <p>Quản lý nhà xe</p>
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                    <a href="" class="sub-menu-link">
+                                        <i class="fa-solid fa-gear"></i>
+                                        <p>Cài đặt</p>
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                </c:if>
+                                <hr>
+                                <a href="<c:url value="/logout"/>" class="sub-menu-link">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <p>Đăng xuất</p>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </c:if>
                         </div>
                     </div>
                 </div>

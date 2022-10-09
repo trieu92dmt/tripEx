@@ -36,6 +36,11 @@ public class HomeController {
     public String index() {
         return "home";
     }
+    
+    @GetMapping(value = "/home")
+    public String home() {
+        return "home";
+    }
 
 //    @GetMapping(value = "/searchResult")
 //    public String search(Model model, @RequestParam Map<String, String> params, HttpSession session) throws ParseException {

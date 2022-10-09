@@ -14,6 +14,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -47,8 +48,11 @@ public class Customer implements Serializable {
     @Size(max = 255)
     @Column(name = "address")
     private String address;
+//    @JoinColumns(@JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false))
+//    @ManyToOne(optional = false)
+//    private User user;
     @JoinColumns(@JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false))
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private User user;
 
     public Customer() {

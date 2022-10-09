@@ -5,6 +5,7 @@
 package com.busstationmanager.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -48,6 +51,10 @@ public class Station implements Serializable {
     @Size(max = 255)
     @Column(name = "address")
     private String address;
+    @OneToMany(mappedBy = "fromStation")
+    private Set<Trip> tripSet;
+    @OneToMany(mappedBy = "toStation")
+    private Set<Trip> tripSet1;
     @JoinColumn(name = "provice_id", referencedColumnName = "province_id")
     @ManyToOne(optional = false)
     private Province proviceId;
@@ -86,6 +93,24 @@ public class Station implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @XmlTransient
+    public Set<Trip> getTripSet() {
+        return tripSet;
+    }
+
+    public void setTripSet(Set<Trip> tripSet) {
+        this.tripSet = tripSet;
+    }
+
+    @XmlTransient
+    public Set<Trip> getTripSet1() {
+        return tripSet1;
+    }
+
+    public void setTripSet1(Set<Trip> tripSet1) {
+        this.tripSet1 = tripSet1;
     }
 
     public Province getProviceId() {

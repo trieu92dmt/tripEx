@@ -35,6 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Province.findByProvinceName", query = "SELECT p FROM Province p WHERE p.provinceName = :provinceName")})
 public class Province implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "destination")
+    private Set<Route> routeSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "departure")
+    private Set<Route> routeSet1;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,6 +114,24 @@ public class Province implements Serializable {
     @Override
     public String toString() {
         return "com.busstationmanager.pojo.Province[ provinceId=" + provinceId + " ]";
+    }
+
+    @XmlTransient
+    public Set<Route> getRouteSet() {
+        return routeSet;
+    }
+
+    public void setRouteSet(Set<Route> routeSet) {
+        this.routeSet = routeSet;
+    }
+
+    @XmlTransient
+    public Set<Route> getRouteSet1() {
+        return routeSet1;
+    }
+
+    public void setRouteSet1(Set<Route> routeSet1) {
+        this.routeSet1 = routeSet1;
     }
     
 }

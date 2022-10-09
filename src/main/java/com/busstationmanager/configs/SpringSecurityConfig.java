@@ -7,7 +7,7 @@ package com.busstationmanager.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-//import com.qlbx.handlers.LoginSuccessfullHandler;
+import com.busstationmanager.handlers.LoginSuccessfullHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,55 +30,56 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableWebSecurity
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
-    "com.qlbx.repository",
-    "com.qlbx.service"
+    "com.busstationmanager.repository",
+    "com.busstationmanager.service"
 })
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private UserDetailsService userDetailsService;
-//    @Autowired
-//    private AuthenticationSuccessHandler loginSuccessHandler;
-//
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().antMatchers("/").permitAll().and()
-//                .formLogin().loginPage("/user-login")
-//                .defaultSuccessUrl("/")
-//                .failureUrl("/login?error")
-//                .usernameParameter("username")
-//                .passwordParameter("password").and()
-//                .logout().logoutUrl("/user-logout").logoutSuccessUrl("/login");
-//        http.formLogin().successHandler(this.loginSuccessHandler);
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private AuthenticationSuccessHandler loginSuccessHandler;
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/").permitAll().and()
+                .formLogin().loginPage("/user-login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login?error")
+                .usernameParameter("username")
+                .passwordParameter("password").and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+        http.formLogin().successHandler(this.loginSuccessHandler);
 //        http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 //                .and().exceptionHandling().accessDeniedPage("/error");
 //        http.authorizeRequests().antMatchers("/companyMn/**").access("hasRole('ROLE_COMPANY')")
 //                .and().exceptionHandling().accessDeniedPage("/");
-//        http.csrf().disable();
-//    }
-//
-//    @Bean
-//    public AuthenticationSuccessHandler loginSuccessHandler(){
-//        return new LoginSuccessfullHandler();
-//    }
-//                @Bean
-//        public Cloudinary cloudinary() {
-//            Cloudinary cloudinary
-//                    = new Cloudinary(ObjectUtils.asMap(
-//                            "cloud_name", "minhtrieu-cloudinary",
-//                            "api_key", "568465589926894",
-//                            "api_secret", "abhM0GqLGiZf2OuZM4qaP4-nqPw",
-//                            "secure", true));
-//            return cloudinary;
-//        }
+        http.csrf().disable();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler loginSuccessHandler() {
+        return new LoginSuccessfullHandler();
+    }
+
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "minhtrieu-cloudinary",
+                        "api_key", "568465589926894",
+                        "api_secret", "abhM0GqLGiZf2OuZM4qaP4-nqPw",
+                        "secure", true));
+        return cloudinary;
+    }
 }

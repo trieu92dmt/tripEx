@@ -15,6 +15,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet"/>
         <link href=" <c:url value="/css/main.css"/>" rel="stylesheet"/>
+        <link href=" <c:url value="/css/rating.css"/>" rel="stylesheet"/>
         <link href=" <c:url value="/css/card-carousel.css"/>" rel="stylesheet"/>
         <link rel="icon" href="<c:url value="/images/icon.jpg"/>"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>

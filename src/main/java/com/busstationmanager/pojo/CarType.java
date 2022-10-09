@@ -4,6 +4,7 @@
  */
 package com.busstationmanager.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -51,8 +52,10 @@ public class CarType implements Serializable {
     @NotNull
     @Column(name = "seat_total")
     private int seatTotal;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carTypeId")
     private Set<Seat> seatSet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "typeId")
     private Set<Car> carSet;
 
