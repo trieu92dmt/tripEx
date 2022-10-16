@@ -15,9 +15,13 @@ package com.busstationmanager.controllers;
 //import javax.servlet.http.HttpSession;
 //import org.apache.commons.lang.time.DateUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 //import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -42,19 +46,9 @@ public class HomeController {
         return "home";
     }
 
-//    @GetMapping(value = "/searchResult")
-//    public String search(Model model, @RequestParam Map<String, String> params, HttpSession session) throws ParseException {
-//        try {
-//            int destination = Integer.parseInt(params.get("destination"));
-//            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(params.get("departure-date"));
-//            Date now = DateUtils.addDays(new Date(), -1);
-//            if (now.compareTo(date) > 0)
-//                throw new Exception();
-//            model.addAttribute("trips", this.tripService.getListTripsByDestinationAndDate(destination, date));
-//        }catch(Exception ex){
-//            return "redirect:/";
-//        }
-//
-//        return "searchResult";
-//    }
+    @GetMapping(value = "/trip-search-result")
+    public String search(Model model, @RequestParam Map<String, String> params, HttpSession session){
+
+        return "trip-search";
+    }
 }

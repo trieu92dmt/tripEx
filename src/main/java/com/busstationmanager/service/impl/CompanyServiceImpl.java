@@ -6,6 +6,7 @@ package com.busstationmanager.service.impl;
 
 import com.busstationmanager.pojo.Car;
 import com.busstationmanager.pojo.CarType;
+import com.busstationmanager.pojo.Company;
 import com.busstationmanager.pojo.User;
 import com.busstationmanager.repository.CompanyRepository;
 import com.busstationmanager.service.CompanyService;
@@ -56,6 +57,11 @@ public class CompanyServiceImpl implements CompanyService{
     public boolean deleteCar(int carId) {
         Car car = this.companyRepository.getCar(carId);
         return this.companyRepository.deleteCar(car);
+    }
+
+    @Override
+    public List<Company> getListCompany() {
+        return this.companyRepository.getListCompany();
     }
     
 }

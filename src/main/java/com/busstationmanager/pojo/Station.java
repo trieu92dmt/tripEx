@@ -4,6 +4,7 @@
  */
 package com.busstationmanager.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -51,8 +52,10 @@ public class Station implements Serializable {
     @Size(max = 255)
     @Column(name = "address")
     private String address;
+    @JsonIgnore
     @OneToMany(mappedBy = "fromStation")
     private Set<Trip> tripSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "toStation")
     private Set<Trip> tripSet1;
     @JoinColumn(name = "provice_id", referencedColumnName = "province_id")

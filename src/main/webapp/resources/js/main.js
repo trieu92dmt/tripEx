@@ -42,3 +42,36 @@ function getCar(carId) {
         }
     });
 }
+
+
+function getTripById(id){
+    fetch(`http://localhost:8080/TripEx/api/trip/get/${id}`).then(function (res) {
+        return res.json();
+    }).then(function (data) {
+        console.log(data);
+        if (data.carId.typeId.typeName.toString().split("_")[0] === "GHENAM"){
+            
+        }
+        else{
+            
+        }
+    });
+}
+
+$(".btn-seat").click(function(){
+    var price = $("#price-per-ticket").val().split(" ")[0];
+    var ticketNumber = parseInt($("#chosen-ticket-list").text());
+    if ($(this).hasClass("btn-click")){
+        $(this).removeClass("btn-click");
+        $("#chosen-ticket-list").text(ticketNumber - 1);
+        $("#total").text(price*(ticketNumber-1));
+    }
+    else{
+        $(this).addClass("btn-click");
+        $("#chosen-ticket-list").text(ticketNumber + 1);
+        $("#total").text(price*(ticketNumber+1));
+    }
+});
+
+
+

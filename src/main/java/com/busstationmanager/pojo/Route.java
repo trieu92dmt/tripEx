@@ -4,6 +4,7 @@
  */
 package com.busstationmanager.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -57,6 +58,7 @@ public class Route implements Serializable {
     @JoinColumn(name = "Destination", referencedColumnName = "province_id")
     @ManyToOne(optional = false)
     private Province destination;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
     private Set<Trip> tripSet;
 

@@ -26,14 +26,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" class="menu-link">
-                        <i class="fa-regular fa-user"></i>
-                        <p>Quản lý tuyến xe</p>
-                        <i class="fa-solid fa-angle-right"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class="menu-link">
+                    <a href="<c:url value="/company/manager/trip"/>" class="menu-link">
                         <i class="fa-regular fa-user"></i>
                         <p>Quản lý chuyến xe</p>
                         <i class="fa-solid fa-angle-right"></i>
@@ -47,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" class="menu-link">
+                    <a href="<c:url value="/company/manager/trip"/>" class="menu-link">
                         <i class="fa-regular fa-user"></i>
                         <p>Gia hạn gói nhà xe</p>
                         <i class="fa-solid fa-angle-right"></i>

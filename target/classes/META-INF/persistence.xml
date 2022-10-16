@@ -19,6 +19,7 @@
     <class>com.busstationmanager.pojo.Package</class>
     <class>com.busstationmanager.pojo.BookInfo</class>
     <class>com.busstationmanager.pojo.Province</class>
+    <class>com.busstationmanager.pojo.TicketBill</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bus_station?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

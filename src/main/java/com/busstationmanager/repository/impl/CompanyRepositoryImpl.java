@@ -6,6 +6,7 @@ package com.busstationmanager.repository.impl;
 
 import com.busstationmanager.pojo.Car;
 import com.busstationmanager.pojo.CarType;
+import com.busstationmanager.pojo.Company;
 import com.busstationmanager.pojo.User;
 import com.busstationmanager.repository.CompanyRepository;
 import java.util.List;
@@ -102,5 +103,17 @@ public class CompanyRepositoryImpl implements CompanyRepository{
         Session session = sessionFactory.getObject().getCurrentSession();
         session.delete(car);
         return true;
+    }
+
+    @Override
+    public List<Company> getListCompany() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Company> query = builder.createQuery(Company.class);
+        Root root = query.from(Company.class);
+        query = query.select(root);
+        Query q = session.createQuery(query);
+        
+        return q.getResultList();   
     }
 }

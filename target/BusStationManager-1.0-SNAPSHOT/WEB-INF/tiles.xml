@@ -42,6 +42,26 @@
         <put-attribute name="title" value="Danh sách xe quản lý"/>
         <put-attribute name="content" value="/WEB-INF/jsp/company/car-mn.jsp"/>
     </definition>
+    <definition name="company-trip-manager" extends="baseLayout">
+        <put-attribute name="title" value="Danh sách chuyến xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/trip-mn.jsp"/>
+    </definition>
+    <definition name="company-extend" extends="baseLayout">
+        <put-attribute name="title" value="Gia hạn gói nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/package.jsp"/>
+    </definition>
+    <definition name="company-revenue-manager" extends="baseLayout">
+        <put-attribute name="title" value="Thông kê doanh thu"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/revenue-stat.jsp"/>
+    </definition>
+    <definition name="company-frequency-manager" extends="baseLayout">
+        <put-attribute name="title" value="Thống kê tần suất"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/company/frequency-stat.jsp"/>
+    </definition>
+    <definition name="trip-search" extends="baseLayout">
+        <put-attribute name="title" value="Gia hạn gói nhà xe"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/trip-search.jsp"/>
+    </definition>
     <!--Admin-->
     <definition name="baseAdminLayout" template="/WEB-INF/layout/admin/base.jsp">
         <put-attribute name="title" value=""/>

@@ -7,7 +7,9 @@ package com.busstationmanager.pojo;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,11 +20,13 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,6 +42,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Trip.findByTicketPrice", query = "SELECT t FROM Trip t WHERE t.ticketPrice = :ticketPrice"),
     @NamedQuery(name = "Trip.findByFinishTime", query = "SELECT t FROM Trip t WHERE t.finishTime = :finishTime")})
 public class Trip implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trip")
+    private Set<Ticket> ticketSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -177,6 +184,15 @@ public class Trip implements Serializable {
     @Override
     public String toString() {
         return "com.busstationmanager.pojo.Trip[ tripId=" + tripId + " ]";
+    }
+
+    @XmlTransient
+    public Set<Ticket> getTicketSet() {
+        return ticketSet;
+    }
+
+    public void setTicketSet(Set<Ticket> ticketSet) {
+        this.ticketSet = ticketSet;
     }
     
 }

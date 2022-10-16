@@ -15,6 +15,7 @@ import java.util.List;
  * @author Admin
  */
 public interface CompanyService {
+    List<Company> getListCompany();
     boolean UpdateCompany(User user);
     List<Car> getCarByCompanyId(int companyId);
     List<CarType> getCarTypes();

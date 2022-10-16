@@ -6,6 +6,7 @@ package com.busstationmanager.repository;
 
 import com.busstationmanager.pojo.Car;
 import com.busstationmanager.pojo.CarType;
+import com.busstationmanager.pojo.Company;
 import com.busstationmanager.pojo.User;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public interface CompanyRepository {
 //    boolean UpdateCompany(Company com);
+    List<Company> getListCompany();
     boolean UpdateCompany(User user);
     List<Car> getCarByCompanyId(int companyId);
     List<CarType> getCarTypes();

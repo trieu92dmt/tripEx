@@ -4,6 +4,7 @@
  */
 package com.busstationmanager.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -44,6 +45,7 @@ public class Seat implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "seat_number")
     private String seatNumber;
+    @JsonIgnore
     @JoinColumn(name = "car_type_id", referencedColumnName = "type_id")
     @ManyToOne(optional = false)
     private CarType carTypeId;

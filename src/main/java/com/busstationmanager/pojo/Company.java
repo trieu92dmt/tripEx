@@ -4,6 +4,7 @@
  */
 package com.busstationmanager.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -43,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Company.findByPhoneNumber", query = "SELECT c FROM Company c WHERE c.phoneNumber = :phoneNumber")})
 public class Company implements Serializable {
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Set<Trip> tripSet;
 
@@ -72,8 +74,10 @@ public class Company implements Serializable {
     @Size(max = 12)
     @Column(name = "phone_number")
     private String phoneNumber;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private Set<Car> carSet;
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private User user;

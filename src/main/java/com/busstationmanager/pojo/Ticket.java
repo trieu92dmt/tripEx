@@ -7,7 +7,6 @@ package com.busstationmanager.pojo;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,7 +24,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -61,8 +58,12 @@ public class Ticket implements Serializable {
     @Column(name = "buy_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date buyDate;
-    @ManyToMany(mappedBy = "ticketSet")
-    private Set<BookInfo> bookInfoSet;
+    @JoinColumns(@JoinColumn(name = "book_id", referencedColumnName = "book_id"))
+    @ManyToOne
+    private BookInfo bookInfo;
+    @JoinColumn(name = "bill_id", referencedColumnName = "bill_id")
+    @ManyToOne
+    private TicketBill billId;
     @JoinColumns(@JoinColumn(name = "trip_id", referencedColumnName = "trip_id"))
     @ManyToOne(optional = false)
     private Trip trip;
@@ -112,13 +113,20 @@ public class Ticket implements Serializable {
         this.buyDate = buyDate;
     }
 
-    @XmlTransient
-    public Set<BookInfo> getBookInfoSet() {
-        return bookInfoSet;
+    public BookInfo getBookInfo() {
+        return bookInfo;
     }
 
-    public void setBookInfoSet(Set<BookInfo> bookInfoSet) {
-        this.bookInfoSet = bookInfoSet;
+    public void setBookInfo(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
+    }
+
+    public TicketBill getBillId() {
+        return billId;
+    }
+
+    public void setBillId(TicketBill billId) {
+        this.billId = billId;
     }
 
     public Trip getTrip() {

@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,8 +53,7 @@ public class CarType implements Serializable {
     @NotNull
     @Column(name = "seat_total")
     private int seatTotal;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carTypeId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carTypeId", fetch = FetchType.EAGER)
     private Set<Seat> seatSet;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "typeId")

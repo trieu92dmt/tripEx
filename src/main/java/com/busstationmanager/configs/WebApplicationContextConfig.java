@@ -5,7 +5,10 @@
  */
 package com.busstationmanager.configs;
 
+import com.busstationmanager.formatter.CarFormatter;
 import com.busstationmanager.formatter.CarTypeFormatter;
+import com.busstationmanager.formatter.DateTimeFormatter;
+import com.busstationmanager.formatter.StationFormatter;
 import java.util.Locale;
 //import java.util.Properties;
 //import java.util.Set;
@@ -62,9 +65,9 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CarTypeFormatter());
-//        registry.addFormatter(new TripFormatter());
-//        registry.addFormatter(new ProvinceFormatter());
-//        registry.addFormatter(new DateTimeFormatter());
+        registry.addFormatter(new CarFormatter());
+        registry.addFormatter(new StationFormatter());
+        registry.addFormatter(new DateTimeFormatter());
     }
 
     @Bean(name = "validator")

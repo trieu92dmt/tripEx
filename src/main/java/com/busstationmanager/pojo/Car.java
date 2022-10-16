@@ -38,9 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Car.findByCarNumber", query = "SELECT c FROM Car c WHERE c.carNumber = :carNumber")})
 public class Car implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
-    private Set<Trip> tripSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +57,9 @@ public class Car implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
     private Company companyId;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
+    private Set<Trip> tripSet;
 
     public Car() {
     }

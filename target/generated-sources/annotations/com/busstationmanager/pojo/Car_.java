@@ -8,15 +8,15 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2022-10-09T18:49:54")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2022-10-15T16:46:13")
 @StaticMetamodel(Car.class)
 public class Car_ { 
 
     public static volatile SingularAttribute<Car, String> carNumber;
     public static volatile SingularAttribute<Car, Company> companyId;
     public static volatile SingularAttribute<Car, String> carName;
-    public static volatile SetAttribute<Car, Trip> tripSet;
     public static volatile SingularAttribute<Car, CarType> typeId;
+    public static volatile SetAttribute<Car, Trip> tripSet;
     public static volatile SingularAttribute<Car, Integer> carId;
 
 }

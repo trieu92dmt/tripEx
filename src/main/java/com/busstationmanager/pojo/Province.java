@@ -4,6 +4,7 @@
  */
 package com.busstationmanager.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -35,8 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Province.findByProvinceName", query = "SELECT p FROM Province p WHERE p.provinceName = :provinceName")})
 public class Province implements Serializable {
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "destination")
     private Set<Route> routeSet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "departure")
     private Set<Route> routeSet1;
 
@@ -51,6 +54,7 @@ public class Province implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "province_name")
     private String provinceName;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proviceId")
     private Set<Station> stationSet;
 
